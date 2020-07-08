@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <div id="container">
+        <input id="roster-input" placeholder="Please enter roster's name...">
+        <button id="get-roster">GET ROSTER</button>
+        <button id="dream-team">DREAM TEAM</button>
+        <div id="content">
+        </div>
+    </div>
+
+    <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./jquery/dist/jquery.js"></script>
+    <script src="apiManager.js"></script>
+    <script src="renderer.js"></script>
     <script src="main.js"></script>
+
+    <!----- handlebars Section ----------------------------------------------->
+
+    <script id="players-template" type="text/x-handlebars-template">
+        {{#each players}}
+        <div class="player-card">
+            <p id="name">{{firstName}} {{lastName}}</p>
+            <p id="jersey">{{jersey}}</p>
+            <div class="popup">
+                <img src="https://nba-players.herokuapp.com/players/{{lastName}}/{{firstName}}" onerror="this.src='https://www.technion.ac.il/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png'">
+                <span class="popuptext"></span>
+            </div>
+            <p id="pos">{{pos}}</p>
+        </div>
+        {{/each}}
+        </div>
+    </script>
+
+    <script id="stats-template" type="text/x-handlebars-template">
+        <h3>*PLAYER STATS*</h3>
+        <p>FG %: {{field_goal_percentage}}</p>
+        <p>FT %: {{free_throw_percentage}}</p>
+        <p>3pt %: {{three_point_percentage}}</p>
+        <p>Points p/ game: {{points_per_game}}</p>
+        <p>Rebounds p/ game: {{rebounds_per_game}}</p>
+        <p>Assists p/ game: {{assists_per_game}}</p>
+
+    </script>
+
+
 </body>
+
 </html>
