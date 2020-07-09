@@ -1,17 +1,21 @@
 class Renderer {
     constructor() {}
-
     renderPlayers = players => {
-        const source = $("#players-template").html()
-        const template = Handlebars.compile(source)
-        const newHTML = template({ players });
-        $("#content").empty().append(newHTML);
+        this.makeHandlebar("#players-template", "#content", players, null)
     };
 
     renderStats = (stats, reference) => {
-        const source = $("#stats-template").html()
-        const template = Handlebars.compile(source)
-        const newHTML = template(stats);
-        $(reference).find(".popuptext").empty().append(newHTML).toggleClass("show");
+        this.makeHandlebar("#stats-template", ".popuptext", stats, reference)
+    }
+}
+
+Renderer.prototype.makeHandlebar = (templateId, containerId, data, reference) => {
+    const source = $(templateId).html();
+    const template = Handlebars.compile(source);
+    const newHTML = template(data);
+    if (reference) {
+        $(reference).find(containerId).empty().append(newHTML).toggleClass("show");
+    } else {
+        $(containerId).empty().append(newHTML);
     }
 }

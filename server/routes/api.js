@@ -1,6 +1,7 @@
 const express = require("express");
 const urllib = require("urllib");
 const router = express.Router();
+const object = require("object-equals");
 
 const dreamTeam = []
 const teamToIDs = {
@@ -49,7 +50,7 @@ router.get("/teams/:teamName", (req, res) => {
                 }
             }
         });
-        res.send(players);
+        res.send({ players });
     });
 });
 
@@ -69,13 +70,16 @@ router.put("/team", (req, res) => {
 });
 
 router.get("/dreamTeam", (req, res) => {
-    res.send(dreamTeam)
+    res.send({ players: dreamTeam })
 });
 
 router.post("/roster", (req, res) => {
     if (dreamTeam.length < 5) {
         const player = req.body;
-        dreamTeam.push(player);
+        const filteredDreamTeam = dreamTeam.filter(dreamer => object.objectEquals(dreamer, player))
+        if (filteredDreamTeam.length === 0) {
+            dreamTeam.push(player);
+        }
     }
     res.end();
 });

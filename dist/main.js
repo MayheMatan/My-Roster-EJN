@@ -3,9 +3,8 @@ const renderer = new Renderer();
 
 $("#get-roster").on("click", () => {
     const input = $("#roster-input").val().toLowerCase();
-    apiManager.fetchTeam(input).then(players => renderer.renderPlayers(players))
+    apiManager.fetchTeam(input).then(players => renderer.renderPlayers(players));
 });
-
 
 $("#content").on("click", ".popup", function() {
     const name = $(this).siblings("#name").text()
@@ -13,7 +12,7 @@ $("#content").on("click", ".popup", function() {
 });
 
 $("#dream-team").on("click", () => {
-    apiManager.fetchDreamTeam().then(players => renderer.renderPlayers(players))
+    apiManager.fetchDreamTeam().then(players => renderer.renderPlayers(players));
 });
 
 $("#content").on("click", ".player-card", function() {
